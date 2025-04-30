@@ -1,5 +1,4 @@
 package jp.ac.gifu_u.info.takaharu.myapplication;
-
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -17,22 +16,27 @@ import jp.ac.gifu_u.info.takaharu.myapplication.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
-
-public class MainActivity extends AppCompatActivity {
-
+import android.widget.Button;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    @Override
+    public void onClick(View v) {
+        finish() ;
+    }
     private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
-
+    private jp.ac.gifu_u.info.takaharu.myapplication.ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button b = (Button) findViewById(R.id.button);
+        b.setOnClickListener(this);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavController navController = Navigation.findNavController(this, R.id.button);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
@@ -70,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavController navController;
+        navController = Navigation.findNavController(this, R.id.button);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
